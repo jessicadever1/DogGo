@@ -65,7 +65,7 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
-                {
+                {// what do the [] signify?
                     cmd.CommandText = @"
                         SELECT Id, [Name], ImageUrl, NeighborhoodId
                         FROM Walker
