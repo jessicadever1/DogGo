@@ -1,17 +1,18 @@
-﻿using DogGo.Models; //This gives us access to the classes in the Models folder
+﻿using System;
+using System.Collections.Generic;// This allows us to make Lists
+using System.Linq;
+using System.Threading.Tasks;
+using DogGo.Models;
 using Microsoft.Data.SqlClient; //This allows us to make the connection to SQL
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration; //This allows us to use the IConfiguration
 using System.Collections.Generic; //This makes it possible to work with Lists
 
-namespace DogGo.Repositories //This says which portion of the DogGo app we're in (Reps), and gives us access to the other classes in Reps
+namespace DogGo.Repositories
 {
-    public class WalkerRepository : IWalkerRepository //This names (declares?) a public (accessible outside of this space) class, and uses properties from the associated Interface
+    public class OwnerRepository : IOwnerRepository
     {
         private readonly IConfiguration _config;
-
-        // The constructor accepts an IConfiguration object as a parameter. This class comes from the ASP.NET framework and is useful for retrieving things out of the appsettings.json file like connection strings.
-        // We can tell it's a constructor bc it doesn't have a return, and it's named the same thing as the file
-        public WalkerRepository(IConfiguration config)
+        public OwnerRepository(IConfiguration config)
         {
             _config = config;
         }
@@ -24,7 +25,9 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
             }
         }
 
-        public List<Walker> GetAllWalkers()
+
+
+        public List<Owner> GetAllOwners()
         {
             using (SqlConnection conn = Connection)
             {
@@ -32,34 +35,38 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], ImageUrl, NeighborhoodId
-                        FROM Walker
+                        SELECT Id, [Name], Email, Address, Phone, NeighborhoodId
+                        FROM Owner
                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    List<Walker> walkers = new List<Walker>();
+                    List<Owner> owners = new List<Owner>();
                     while (reader.Read())
                     {
-                        Walker walker = new Walker
+                        Owner owner = new Owner
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
-                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Address = reader.GetString(reader.GetOrdinal("Address")),
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
                         };
 
-                        walkers.Add(walker);
+                        owners.Add(owner);
                     }
 
                     reader.Close();
 
-                    return walkers;
+                    return owners;
                 }
             }
         }
 
-        public Walker GetWalkerById(int id)
+
+
+        public Walker GetOwnerById(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -67,8 +74,8 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
                 using (SqlCommand cmd = conn.CreateCommand())
                 {// what do the [] signify?
                     cmd.CommandText = @"
-                        SELECT Id, [Name], ImageUrl, NeighborhoodId
-                        FROM Walker
+                        SELECT Id, [Name], Email, Address, Phone, NeighborhoodId
+                        FROM Owner
                         WHERE Id = @id
                     ";
 
@@ -78,16 +85,18 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
 
                     if (reader.Read())
                     {
-                        Walker walker = new Walker
+                        Owner owner = new Owner
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
-                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Address = reader.GetString(reader.GetOrdinal("Address")),
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
                         };
 
                         reader.Close();
-                        return walker;
+                        return owner;
                     }
                     else
                     {
@@ -97,5 +106,9 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
                 }
             }
         }
+
+
+
+
     }
 }
