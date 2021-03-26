@@ -72,7 +72,7 @@ namespace DogGo.Repositories
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
-                {// what do the [] signify?
+                {// the [] around name are to make sure it's referencing a property of Owner, rather than a SQL keyword
                     cmd.CommandText = @"
                         SELECT Id, [Name], Email, Address, Phone, NeighborhoodId
                         FROM Owner
