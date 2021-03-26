@@ -423,3 +423,4 @@ C:\Users\jessi\workspace\DogGo\DogGo\bin\Debug\net5.0\runtimes\win\lib\netstanda
 C:\Users\jessi\workspace\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Walker\Index.cshtml.g.cs
 C:\Users\jessi\workspace\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Walker\Details.cshtml.g.cs
 C:\Users\jessi\workspace\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Owner\Index.cshtml.g.cs
+C:\Users\jessi\workspace\DogGo\DogGo\obj\Debug\net5.0\Razor\Views\Owner\Details.cshtml.g.cs
