@@ -22,7 +22,8 @@ namespace DogGo.Controllers
         // GET: OwnerController
         public ActionResult Index()
         {
-            return View();
+            List<Owner> owners =  _ownerRepo.GetAllOwners();
+            return View(owners);
         }
 
         // GET: OwnerController/Details/5
