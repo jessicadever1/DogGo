@@ -32,9 +32,14 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], ImageUrl, NeighborhoodId
+                        SELECT 
+                            Walker.Id,
+                            Walker.[Name],
+                            Walker.ImageUrl,
+                            NeighborhoodId,
+                            Neighborhood.Name AS NeighborhoodName
                         FROM Walker
-                    ";
+                        LEFT JOIN Neighborhood ON Walker.NeighborhoodId = Neighborhood.Id;";
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -47,6 +52,12 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                        };
+
+                        walker.Neighborhood = new Neighborhood
+                        {
+                          
+                            Name = reader.GetString(reader.GetOrdinal("NeighborhoodName"))
                         };
 
                         walkers.Add(walker);
