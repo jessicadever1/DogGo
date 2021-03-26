@@ -48,17 +48,15 @@ namespace DogGo.Controllers
         // POST: OwnerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Owner owner)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                _ownerRepo.AddOwner(owner);
-
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
+            catch
             {
-                return View(owner);
+                return View();
             }
         }
 
