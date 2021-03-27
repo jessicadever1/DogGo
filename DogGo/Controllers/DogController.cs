@@ -12,7 +12,7 @@ namespace DogGo.Controllers
     public class DogController : Controller
 
     {
-        public readonly IDogRepository _dogRepo;
+        private readonly IDogRepository _dogRepo;
 
         public DogController(IDogRepository dogRepository)
         {
