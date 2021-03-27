@@ -52,7 +52,7 @@ namespace DogGo.Controllers
         {
             try
             {
-                _ownerRepo.AddOwner(owner);
+                _ownerRepo.AddOwner(owner); //Does this have access to the field _ownerRepo because of line 14?
 
                 return RedirectToAction("Index");
             }
