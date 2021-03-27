@@ -9,5 +9,6 @@ namespace DogGo.Repositories //This namespace allows us to work with other files
         Walker GetWalkerById(int id); //This a method used to select a specific walker by their Id
         void AddWalker(Walker walker);
         void UpdateWalker(Walker walker);
+        void DeleteWalker(int walkerId);
     }
 }

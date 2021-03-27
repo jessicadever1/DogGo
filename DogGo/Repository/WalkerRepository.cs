@@ -174,5 +174,27 @@ namespace DogGo.Repositories //This says which portion of the DogGo app we're in
 
 
 
+        public void DeleteWalker(int walkerId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM Walker
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", walkerId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
     }
 }
