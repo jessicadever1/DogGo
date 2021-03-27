@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;// This allows us to make Lists
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;// This allows us to make Lists
 using DogGo.Models;
 using Microsoft.Data.SqlClient; //This allows us to make the connection to SQL
 using Microsoft.Extensions.Configuration; //This allows us to use the IConfiguration
-using System.Collections.Generic; //This makes it possible to work with Lists
+
 
 namespace DogGo.Repositories
 {
