@@ -6,17 +6,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using DogGo.Repositories;
 using DogGo.Models;
+using DogGo.Models.ViewModels;
 
 namespace DogGo.Controllers
 {
     public class OwnerController : Controller
     {
         private readonly IOwnerRepository _ownerRepo;
+        private readonly IDogRepository _dogRepo;
+        private readonly IWalkerRepository _walkerRepo;
 
         // ASP.NET will give us an instance of our Owner Repository. This is called "Dependency Injection"
-        public OwnerController(IOwnerRepository ownerRepository)
+        public OwnerController(
+            IOwnerRepository ownerRepository,
+            IDogRepository dogRepository,
+            IWalkerRepository walkerRepository)
         {
             _ownerRepo = ownerRepository;
+            _dogRepo = dogRepository;
+            _walkerRepo = walkerRepository;
         }
 
         // GET: OwnerController
@@ -26,15 +34,19 @@ namespace DogGo.Controllers
             return View(owners);
         }
 
-        // GET: OwnerController/Details/5
+        // GET: Owner/Details/5
         public ActionResult Details(int id)
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
+            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
+            List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(owner.NeighborhoodId);
 
-            if (owner == null)
+            ProfileViewModel vm = new ProfileViewModel()
             {
-                return NotFound();
-            }
+                Owner = owner,
+                Dogs = dogs,
+                Walkers= walkers
+            };
 
             return View(owner);
         }
