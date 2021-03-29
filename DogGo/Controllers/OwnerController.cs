@@ -90,12 +90,13 @@ namespace DogGo.Controllers
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
 
-            if (owner == null)
+            OwnerFormViewModel vm = new OwnerFormViewModel()
             {
-                return NotFound();
-            }
+                Owner = new Owner(),
+                
+            };
 
-            return View(owner);
+            return View(vm);
         }
 
         // POST: Owners/Edit/5
