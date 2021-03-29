@@ -10,5 +10,7 @@ namespace DogGo.Repositories //This namespace allows us to work with other files
         void AddWalker(Walker walker);
         void UpdateWalker(Walker walker);
         void DeleteWalker(int walkerId);
+        List<Walker> GetWalkersInNeighborhood(int neighborhoodId);
+
     }
 }
