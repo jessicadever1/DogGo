@@ -90,10 +90,17 @@ namespace DogGo.Controllers
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
 
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+
             OwnerFormViewModel vm = new OwnerFormViewModel()
             {
-                Owner = new Owner(),
-                
+                Owner = _ownerRepo.GetOwnerById(id),
+                Neighborhoods = neighborhoods
             };
 
             return View(vm);
