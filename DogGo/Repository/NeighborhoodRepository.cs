@@ -51,5 +51,32 @@ namespace DogGo.Repositories
                 }
             }
         }
+
+
+
+
+        public void UpdateNeighborhood(Neighborhood neighborhood)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Neighborhood
+                    SET
+                        [Name] = @name
+                    WHERE Id = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@name", neighborhood.Name);
+                   
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
     }
 }

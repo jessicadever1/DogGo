@@ -37,6 +37,11 @@
                 <select asp-for="Owner.NeighborhoodId" class="form-control">
                     <option value="">Select Neighborhood</option>
                     @foreach (Neighborhood neighborhood in Model.Neighborhoods)
+                    if (Model.Neighborhoods == null)
+                    { 
+                        <option>Unknown</option>
+                    }
+                    else 
                     {
                         <option value="@neighborhood.Id">@neighborhood.Name</option>
                     }

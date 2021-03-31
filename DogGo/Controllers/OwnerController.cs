@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DogGo.Repositories;
 using DogGo.Models;
 using DogGo.Models.ViewModels;
@@ -90,10 +87,17 @@ namespace DogGo.Controllers
         {
             Owner owner = _ownerRepo.GetOwnerById(id);
 
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+
             OwnerFormViewModel vm = new OwnerFormViewModel()
             {
-                Owner = new Owner(),
-                
+                Owner = _ownerRepo.GetOwnerById(id),
+                Neighborhoods = neighborhoods
             };
 
             return View(vm);
