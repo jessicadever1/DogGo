@@ -33,7 +33,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -44,15 +44,16 @@
                 @Html.DisplayFor(modelItem => item.Breed)
             </td>
             <td>
+                
+                <img width="50" src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="dog">
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
 }
