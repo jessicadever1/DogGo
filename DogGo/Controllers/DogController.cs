@@ -72,9 +72,12 @@ namespace DogGo.Controllers
         }
 
         // GET: Dogs/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
+            
             Dog dog = _dogRepo.GetDogById(id);
+            dog.OwnerId = GetCurrentUserId();
 
             if (dog == null)
             {
@@ -102,9 +105,11 @@ namespace DogGo.Controllers
         }
 
         // GET: Dog/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Dog dog = _dogRepo.GetDogById(id);
+            dog.OwnerId = GetCurrentUserId();
 
             return View(dog);
         }
