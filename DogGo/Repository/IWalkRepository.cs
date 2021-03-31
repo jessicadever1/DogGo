@@ -6,6 +6,6 @@ namespace DogGo.Repositories
     public interface IWalkRepository
     {
         List<Walk> GetAllWalks(); //This a method used to GET a list of walks from the database
-        Walk GetWalksByWalkerId(int id);
+        Walk GetWalksByWalkerId(int walkerId);
     }
 }
