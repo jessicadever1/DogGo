@@ -56,6 +56,8 @@ namespace DogGo.Controllers
         {
             try
             {
+                dog.OwnerId = GetCurrentUserId();
+
                 _dogRepo.AddDog(dog); //Does this have access to the field _ownerRepo because of line 14?
 
                 return RedirectToAction("Index");
