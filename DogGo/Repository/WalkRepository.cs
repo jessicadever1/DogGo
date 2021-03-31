@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DogGo.Models;
 using DogGo.Repositories;
 
-namespace DogGo.Repository
+namespace DogGo.Repositories
 {
     public class WalkRepository : IWalkRepository
     {
@@ -82,8 +82,8 @@ namespace DogGo.Repository
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                SELECT Id, DateTime, Duration, DogId, WalkerId 
-                FROM Walk
+                SELECT Id, Date, Duration, DogId, WalkerId 
+                FROM Walks
                 WHERE WalkerId = @walkerId
             ";
 
@@ -98,7 +98,7 @@ namespace DogGo.Repository
                         Walk walk = new Walk()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Date = reader.GetDateTime(reader.GetOrdinal("DateTime")),
+                            Date = reader.GetDateTime(reader.GetOrdinal("Date")),
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration")),
                             DogId = reader.GetInt32(reader.GetOrdinal("DogId")),
                             WalkerId = reader.GetInt32(reader.GetOrdinal("WalkerId"))
