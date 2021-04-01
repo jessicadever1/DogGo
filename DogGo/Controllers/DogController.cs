@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DogGo.Repositories;
 using DogGo.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DogGo.Controllers
 {
@@ -20,9 +22,13 @@ namespace DogGo.Controllers
         }
 
         // GET: DogController
+        [Authorize]
         public ActionResult Index()
         {
-            List<Dog> dogs = _dogRepo.GetAllDogs();
+            int ownerId = GetCurrentUserId();
+
+            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(ownerId);
+
             return View(dogs);
         }
 
@@ -40,6 +46,7 @@ namespace DogGo.Controllers
         }
 
         // GET: Dog/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -52,6 +59,8 @@ namespace DogGo.Controllers
         {
             try
             {
+                dog.OwnerId = GetCurrentUserId();
+
                 _dogRepo.AddDog(dog); //Does this have access to the field _ownerRepo because of line 14?
 
                 return RedirectToAction("Index");
@@ -63,9 +72,12 @@ namespace DogGo.Controllers
         }
 
         // GET: Dogs/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
+            
             Dog dog = _dogRepo.GetDogById(id);
+            dog.OwnerId = GetCurrentUserId();
 
             if (dog == null)
             {
@@ -93,9 +105,11 @@ namespace DogGo.Controllers
         }
 
         // GET: Dog/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Dog dog = _dogRepo.GetDogById(id);
+            dog.OwnerId = GetCurrentUserId();
 
             return View(dog);
         }
@@ -115,5 +129,14 @@ namespace DogGo.Controllers
                 return View(dog);
             }
         }
+
+
+
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
+        }
+
     }
 }
